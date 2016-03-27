@@ -15,8 +15,10 @@ public class RSSExample {
 		
 		// 遠端資料路徑
 		// >>>Fill here<<< 
-		String uri = "";
-
+		String uri = "http://feed.pixnet.net/blog/posts/rss/lohas";
+                     
+		//"http://www.appledaily.com.tw/rss/newcreate/kind/rnews/type/new"
+		
 		System.out.println(
 				CrawlerPack.start()
 				    .getFromXml(uri)

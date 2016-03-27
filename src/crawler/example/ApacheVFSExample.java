@@ -23,15 +23,15 @@ public class ApacheVFSExample {
 		// 遠端資料路徑
 		// >>>Fill here<<< 
 		String uri = 
-				  "" 						// 解壓順序
+				  "tar:gz:" 						// 解壓順序
 				+ "http://"
-				+ ""						// 帳密資訊
+				+ "crawler:12345678@"						// 帳密資訊
 				+ "128.199.204.20"
-				+ ""						// port 
+				+ ":8080"						// port 
 				+ "/httpLogin/download.tar.gz"
-				+ ""						// 解完gz後，download.tar.gz 會變什麼?
-				+ "";						// 如何從打包打中取出資料
-
+				+ "!/download.tar"						// 解完gz後，download.tar.gz 會變什麼?
+				+ "!/path/data";						// 如何從打包打中取出資料
+		System.out.println(uri);
 		System.out.println(
 				CrawlerPack.start()
 				.getFromJson(uri)

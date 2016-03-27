@@ -15,7 +15,7 @@ import com.github.abola.crawler.CrawlerPack;
 public class RealPrice {
 	public static void main(String[] args) {
 		// >>>Fill here<<< 
-		String uri = "";
+		String uri = "zip:http://plvr.land.moi.gov.tw/Download?type=zip&fileName=lvr_landxml.zip!/A_LVR_LAND_B.XML";
 		
 		// 印出整份 XML 資料
 		System.out.println( 

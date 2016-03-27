@@ -16,6 +16,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 
 /**
  * 整合練習：Yahoo Stock 個股成交明細
@@ -36,8 +37,8 @@ public class YahooStock {
 
 	static Logger log = LoggerFactory.getLogger(YahooStock.class);
 	// >>>Fill here<<< 
-	final static String mongodbServer = ""; // your host name
-	final static String mongodbDB = "";		// your db name
+	final static String mongodbServer = "mongodb://acsoar:aggie02360236@ds011369.mlab.com:11369/cities"; // your host name   "localhost"
+	final static String mongodbDB = "cities";		// your db name    "stock"
 	
 	static String stockNumber;
 	
@@ -81,8 +82,9 @@ public class YahooStock {
 				// 目標含有  成 交 明 細  的table
 				// <td align="center" width="240">2330 台積電 成 交 明 細</td>
 				// >>>Fill here<<
-				.select("") ;
+				.select("table:contains(成 交 明 細)") ;
 
+		//System.out.println(transDetail);
 		// 分解明細資料表格
 		List<DBObject> parsedTransDetail = parseTransDetail(transDetail);
 		
@@ -102,13 +104,17 @@ public class YahooStock {
 		
 		// 將以下分解出資料日期中的 105/03/25
 		// <td width="180">資料日期：105/03/25</td>
-		// >>>Fill here<<< 
-		String day = "";  // day 要是 105/03/25 如何寫
+		// day 要是 105/03/25 如何get
+		String day = transDetail
+				.select("td:matchesOwn(資料日期)")
+				.text().substring(5,14);
+		
+		
 		
 		// 取出 header 以外的所有交易資料
 		// >>>Fill here<<< 
-		for(Element detail: transDetail.select("") ){
-			
+		for(Element detail: transDetail.select("tr[bgcolor=#ffffff]") ){
+			//System.out.println("--------------------------------------------"+detail);
 			Map<String, String> data = new HashMap<>();
 			
 /*			資料格式範例
@@ -131,8 +137,10 @@ public class YahooStock {
 			data.put("volume", detail.select("td:eq(5)").text());
 			
 			result.add( new BasicDBObject(data) );
+			System.out.println(data);
 		}
 		return result;
+		
 	} 
 	
 	/**
@@ -147,6 +155,12 @@ public class YahooStock {
 			
 			// 如何將資料寫回 mongodb ?
 			// >>>Fill here<<< 
+			mongoClient = new MongoClient(new MongoClientURI(mongodbServer));       //new MongoClient("localhost",27017);
+
+			DB db = mongoClient.getDB(mongodbDB);
+			
+			db.getCollection("stock").insert(parsedTransDetail);
+			
 			
 		} catch (Exception e) {
 			log.warn(e.getMessage());

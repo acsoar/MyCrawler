@@ -15,8 +15,8 @@ public class HighwayStaticInfo {
 		// 遠端資料路徑
 		// 要如何將  cms_value.xml.gz 解開變成 cms_value.xml?
 		// >>>Fill here<<< 
-		String uri = ""
-					+"http://tisvcloud.freeway.gov.tw/cms_value.xml.gz";
+		String uri = "gz:"
+					+"http://tisvcloud.freeway.gov.tw/cctv_value.xml.gz";
 		
 
 		System.out.println(

@@ -34,13 +34,12 @@ class PttBoard {
     	// 取得前一頁的index
     	// >>>Fill here<<< 
         String prevPage =
-            CrawlerPack.start()
-                .addCookie("","")                		// 八卦版進入需要設定cookie
+    	    CrawlerPack.start()
+                .addCookie("over18","1")                		// 八卦版進入需要設定cookie
                 .getFromHtml(pttMainPage)            	// 遠端資料格式為 HTML
-                .select("")  							// 取得右上角『前一頁』的內容
+                .select("div.btn ")  							// 取得右上角『前一頁』的內容
                 .get(1).attr("href")
                 .replaceAll("/bbs/"+board+"/index([0-9]+).html", "$1");
-        
         
         
         // 目前最末頁 index 編號
@@ -54,7 +53,7 @@ class PttBoard {
             
             Elements links =
                 CrawlerPack.start()
-                    .addCookie("", "")		// 八卦版進入需要設定cookie >>>Fill here<<< 
+                    .addCookie("over18", "1")		// 八卦版進入需要設定cookie >>>Fill here<<< 
                     .getFromHtml(currPage)
                     .select("");			// 取得文章的<a> tag >>>Fill here<<< 
 

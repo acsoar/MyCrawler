@@ -24,7 +24,7 @@ public class Stock2330 {
 			CrawlerPack.start()
 				.setRemoteEncoding("big5")
 				.getFromHtml(uri)
-				.select("") // 如何取得證交取的數字格式 >>>Fill here<<< 
+				.select("td:matchesOwn(^([\\+\\-])*[0-9]{1,3}(,[0-9]{3})*(\\.[0-9]+)*)") // 如何取得證交取的數字格式 >>>Fill here<<< 
 		);
 		
 		
